@@ -1,0 +1,35 @@
+import java.util.Arrays;
+public class Main
+{
+    public static int getSumInRange(int[][]ar,int r1,int r2,int c1,int c2)
+    {
+        int topSum = 0 , leftSum = 0 , crossSum = 0 , totalSum = ar[r2][c2];
+        topSum = r1 != 0 ? ar[r1-1][c2] : 0;
+        leftSum = c1 != 0 ? ar[r2][c1-1] : 0;
+        crossSum = (r1 != 0 && c1 != 0) ? ar[r1-1][c1-1] : 0;
+        return totalSum - topSum - leftSum +crossSum;
+    }
+    public static void createSumMatrix(int[][]ar)
+    {
+        for(int i=0;i<ar.length;i++)
+        {
+            for(int j=1;j<ar[i].length;j++)
+            {
+                ar[i][j] += ar[i][j-1];
+            }
+        }
+        for(int i=1;i<ar.length;i++)
+        {
+            for(int j=0;j<ar[i].length;j++)
+            {
+                ar[i][j] += ar[i-1][j];
+            }
+        }
+    }
+	public static void main(String[] args) {
+		int[][]ar = new int[4][4];
+		for(int[]arr : ar) Arrays.fill(arr,1);
+		createSumMatrix(ar);
+		System.out.println(getSumInRange(ar,0,3,0,3));
+	}
+}
