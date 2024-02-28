@@ -1,0 +1,46 @@
+import java.util.Arrays;
+public class Main
+{
+    private static void transpose(char[][]ar)
+    {
+        for(int i=0;i<ar.length;i++)
+        {
+            for(int j=i;j<ar[i].length;j++)
+            {
+                char temp = ar[i][j];
+                ar[i][j] = ar[j][i];
+                ar[j][i] = temp;
+            }
+        }
+    }
+    private static void rotateMatrixBy90Deg(char[][]ar)
+    {
+        transpose(ar);
+        for(int i=0;i<ar.length;i++)
+        {
+            int st = 0 , end = ar[i].length-1;
+            while(st <= end)
+            {
+                char temp = ar[i][st];
+                ar[i][st] = ar[i][end];
+                ar[i][end] = temp;
+                st++;
+                end--;
+            }
+        }
+    }
+    private static void print2dArray(char[][]ar)
+    {
+        for(char[]arr : ar)
+        {
+            System.out.println(Arrays.toString(arr)+" ");
+        }
+        System.out.println();
+    }
+	public static void main(String[] args) {
+		char[][]ar = {{'a','b','c','d'},{'e','f','g','h'},{'i','j','k','l'},{'m','n','o','p'}};
+		print2dArray(ar);
+		rotateMatrixBy90Deg(ar);
+		print2dArray(ar);
+	}
+}
