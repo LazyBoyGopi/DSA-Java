@@ -1,0 +1,28 @@
+import java.util.Arrays;
+public class Main
+{
+    static void insertionSort(int[]ar)
+    {
+        for(int i=1;i<ar.length;i++)
+        {
+            int j = i;
+            while(j >0 && ar[j] < ar[j-1])
+            {
+                int temp = ar[j];
+                ar[j] = ar[j-1];
+                ar[j-1] = temp;
+                j--;
+            }
+        }
+    }
+    static void print(int[]ar)
+    {
+        System.out.println(Arrays.toString(ar));
+    }
+	public static void main(String[] args) {
+	    int[]ar ={3,4,2,1,4,5,7,5,4,2,2,34,6,7,9,4,5,4,3};
+	    print(ar);
+	    insertionSort(ar);
+	    print(ar);
+	}
+}
