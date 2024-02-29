@@ -1,3 +1,5 @@
+// If Array is already sorted in ascending order Time complexity is O(n) 
+// else it is O(n^2)
 import java.util.Arrays;
 public class Main
 {
