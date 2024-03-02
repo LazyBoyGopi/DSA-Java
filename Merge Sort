@@ -1,0 +1,27 @@
+class Solution {
+    void conquer(int[]nums,int st, int mid, int end)
+    {
+        int[] ans = new int[end-st+1];
+        int idx = 0 , idx1 = st , idx2 = mid+1;
+        while(idx1 <= mid && idx2 <=end)
+        {
+            if(nums[idx1] < nums[idx2]) ans[idx++] = nums[idx1++];
+            else ans[idx++] = nums[idx2++];
+        }
+        while(idx1 <= mid) ans[idx++] = nums[idx1++];
+        while(idx2 <= end) ans[idx++] = nums[idx2++];
+        for(int i=0 , j=st;i<ans.length;i++,j++) nums[j] = ans[i];
+    }
+    void divide(int[]nums,int st ,int end)
+    {
+        if(st >= end) return;
+        int mid = st+(end-st)/2;
+        divide(nums,st,mid);
+        divide(nums,mid+1,end);
+        conquer(nums,st,mid,end);
+    }
+    public int[] sortArray(int[] nums) {
+        divide(nums,0,nums.length-1);
+        return nums;
+    }
+}
