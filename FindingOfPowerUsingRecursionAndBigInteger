@@ -1,0 +1,23 @@
+//Time complexity -> O(log b)
+//Space complexity ->O(log b)
+
+import java.util.*;
+import java.math.*;
+import java.math.BigInteger;
+import java.math.BigInteger.*;
+class HelloWorld {
+    private static BigInteger getPower(BigInteger a , BigInteger b)
+    {
+        if(b.equals(BigInteger.ONE)) return a;
+        BigInteger res = getPower(a,b.divide(BigInteger.valueOf(2)));
+        if(b.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) return res.multiply(res);
+        return res.multiply(res).multiply(a);
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        BigInteger ans = getPower(BigInteger.valueOf(a),BigInteger.valueOf(b));
+        System.out.println(ans);
+    }
+}
