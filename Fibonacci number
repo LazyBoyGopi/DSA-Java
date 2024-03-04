@@ -1,0 +1,11 @@
+class HelloWorld {
+    private static int getFibbonacci(int n)
+    {
+        if(n <=1) return n;
+        return getFibbonacci(n-1)+getFibbonacci(n-2);
+    }
+    public static void main(String[] args) {
+        System.out.println("Enter your number");
+        System.out.println("Fibonnaci number at given number is "+getFibbonacci(new java.util.Scanner(System.in).nextInt()));
+    }
+}
