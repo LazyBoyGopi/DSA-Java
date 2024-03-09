@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class PracticeSession {
+    private static void numberOfCombinations(int[]ar)
+    {
+        for(int i=0;i<ar.length;i++)
+        {
+            for(int j=i;j<ar.length;j++)
+            {
+                int[]com = new int[j-i+1];
+                int idx = 0;
+                for(int k=i;k<=j;k++)
+                {
+                    com[idx++] = ar[k];
+                }
+                System.out.println(Arrays.toString(com));
+            }
+        }
+    }
+    private static void getCombinations(int[]ar,int idx , List<Integer>list)
+    {
+        if(idx == ar.length )
+        {
+            if(!list.isEmpty())
+            System.out.println(list);
+            return;
+        }
+        list.add(ar[idx]);
+        getCombinations(ar, idx+1, list);
+        list.remove((int)list.size()-1);
+        getCombinations(ar, idx+1, list);
+    }
+    private static void getPermutations(int[]ar,int idx)
+    {
+        if(idx == ar.length)
+        {
+            System.out.println(Arrays.toString(ar));
+            return;
+        }
+        for(int i=idx;i<ar.length;i++)
+        {
+            swap(ar,i,idx);
+            getPermutations(ar, idx+1);
+            swap(ar,i,idx);
+        }
+    }
+    private static void swap(int[]ar,int i, int j)
+    {
+        int temp = ar[i];
+        ar[i] = ar[j];
+        ar[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        int[]ar = {1,2,3};
+        List<Integer>list = new ArrayList<>();
+        getCombinations(ar,0,list);
+    }
+}
