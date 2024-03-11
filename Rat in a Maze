@@ -1,0 +1,19 @@
+import java.util.Arrays;
+
+public class PracticeSession {
+   private static boolean ratInAMaze(int[][]mat,int r, int c,int[][]ar)
+   {
+    if(mat[r][c] != 1) return false;
+    ar[r][c] = 1;
+    if(r == mat.length-1 && c == mat[0].length-1) return true;
+    if(r < mat.length-1 && mat[r+1][c] == 1)  return ratInAMaze(mat, r+1, c,ar);
+    if(c < mat.length-1 && mat[r][c+1] == 1)  return ratInAMaze(mat, r, c+1,ar);
+    return false;
+   }
+    public static void main(String[] args) {
+        int[][]mat = {{1,1,0,0},{0,1,0,0},{0,1,1,0},{1,1,1,1}};
+        int[][]ar = new int[mat.length][mat.length];
+        System.out.println(ratInAMaze(mat,0,0,ar));
+        System.out.println(Arrays.deepToString(ar));
+    }
+}
