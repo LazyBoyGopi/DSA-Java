@@ -1,1 +1,61 @@
+import java.util.*;
+class  HelloWorld{
+    private static void addList(int[][]mat,List<List<String>> list)
+    {
+        List<String>newList = new ArrayList<>();
+        for(int[]ar:mat){
+            String s = "";
+            for(int i=0;i<ar.length;i++)
+            {
+                if(ar[i] == 1) s += 'Q';
+                else s += ".";
+            }
+            newList.add(s);
+        }
+        list.add(newList);
+    }
+    private static boolean isSafe(int[][]mat,int row,int col)
+    {
+        for(int i=0;i<col;i++)
+        {
+            if(mat[row][i] == 1) return false;
+        }
+        for(int i=0;i<row;i++)
+        {
+            if(mat[i][col] == 1) return false;
+        }
+        for(int i=row,c=col;i<mat.length && c>=0;i++,c--)
+        {
+            if(mat[i][c] == 1) return false; 
+        }
+        for(int i=row,c=col;i>=0 && c>=0;i--,c--)
+        {
+            if(mat[i][c] == 1) return false;
+        }
+        return true;
+    }
+    private static void nQueens(int[][]mat,int n,int col,List<List<String>> list)
+    {
+        if(col == n){
+            addList(mat,list);
+            return;
+        }
+        for(int i=0;i<mat.length;i++)
+        {
+            if(isSafe(mat,i,col))
+            {
+                mat[i][col] = 1;
+                nQueens(mat, n, col+1, list);
+                mat[i][col] = 0;
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int n = 6;
+        List<List<String>> list = new ArrayList<>();
+       int[][]mat = new int[n][n];
+       nQueens(mat,n,0,list);
+       System.out.println(list);
+    }
+}
 
