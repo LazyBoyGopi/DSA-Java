@@ -1,0 +1,149 @@
+import java.util.*;
+class Node{
+    Node next;
+    int data;
+    public Node(int data)
+    {
+        this.data = data;
+    }
+}
+class LinkedList{
+    Node head;
+    Node last;
+    public LinkedList(){
+        
+    }
+    public LinkedList(int data){
+        head = new Node(data);
+        last = head;
+    }
+    public void insertAt(int idx,int data)
+    {
+        if(idx == 0) {
+            insertAtFirst(data);
+            return;
+        }
+        int len = 0;
+        Node temp = head;
+        while(temp != null && len < idx-1){
+            temp = temp.next;
+            len++;
+        }
+        if(temp == null)
+        {
+            throw new IndexOutOfBoundsException();
+        }
+        Node temp1 = temp.next;
+        temp.next = new Node(data);
+        temp = temp.next;
+        temp.next = temp1;
+    }
+    public void insertAtFirst(int data)
+    {
+        Node temp = head;
+        head = new Node(data);
+        head.next = temp;
+    }
+    public void insertAtLast(int data)
+    {
+        if(head == null)
+        {
+            head = new Node(data);
+        last = head;
+        return;
+        }
+        last.next = new Node(data);
+        last = last.next;
+    }
+    public int remove(int idx)
+    {
+        if(head == null) throw new NullPointerException();
+        if(idx == 0)
+        {
+            int val = head.data;
+            head  = head.next;
+            return val;
+        }
+        int curIdx = 0 ;
+        Node temp = head;
+        while(temp != null && curIdx < idx-1)
+        {
+            temp = temp.next;
+            curIdx++;
+        }
+        if(temp == null){
+            throw new IndexOutOfBoundsException();
+        }
+        int val = temp.next.data;
+        temp.next = temp.next.next;
+        return val;
+    }
+    @Override
+    public String toString()
+    {
+        Node temp = head;
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        while(temp != null)
+        {
+            sb.append(temp.data);
+            if(temp.next != null)
+            sb.append(',');
+            temp = temp.next;
+        }
+        sb.append(']');
+        return sb.toString();
+    }
+    public void reverseList(Node prev ,Node cur,Node next)
+    {
+        if(cur == null) {
+            last = head;
+            head = prev;
+            last.next = null;
+            return;
+        }
+        next = cur.next;
+        cur.next = prev;
+        prev = cur;
+        cur = next;
+        reverseList(prev,cur,next);
+    }
+    public  void reverseList()
+    {   
+        if(head == null) return;
+        if(head == null && head.next == null) return;
+        Node prev = head , cur = head.next;
+        while(cur != null)
+        {
+            Node curNext = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = curNext;
+        }
+        last = head;
+        head = prev;
+        last.next = null;
+    }
+}
+ class Main{
+    
+    public static void main(String[]gopii)
+    {
+        LinkedList l = new LinkedList();
+        l.insertAtLast(12);
+        l.insertAtLast(23);
+        l.insertAtLast(45);
+        l.insertAtLast(43);
+        l.insertAtLast(0);
+        l.insertAtFirst(8);
+        l.insertAtFirst(4);
+        l.insertAtFirst(23);
+        l.insertAtFirst(1);
+        l.insertAt(6, 435);
+        System.out.println(l);
+        l.remove(9);
+        System.out.println(l);
+        l.reverseList(null,l.head,null);
+        System.out.println(l);
+    }
+}
