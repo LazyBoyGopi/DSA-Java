@@ -1,0 +1,115 @@
+class Node{
+    Node next;
+    Node previous;
+    int data;
+    public Node(int data)
+    {
+        this.data = data;
+    }
+}
+class Queue{
+    Node front;
+    Node rear;
+    int size = 0;
+    public void enqueueLast(int data)
+    {
+        size++;
+        if(rear == null)
+        {
+            rear = front = new Node(data);
+            return;
+        }
+        Node temp = new Node(data);
+        temp.previous = rear;
+        rear.next = temp;
+        rear = temp;
+    }
+    public void enqueueFirst(int data)
+    {
+        size++;
+        if(front == null)
+        {
+            rear = front = new Node(data);
+            return;
+        }
+        Node temp = new Node(data);
+        temp.next = front;
+        front.previous = temp;
+        front = temp;
+    }
+    public int dequeueFirst()
+    {
+        if(front == null) throw new NullPointerException();
+        int data = front.data;
+        front = front.next;
+        size--;
+        return data;
+    }
+    public int dequeueLast()
+    {
+        if(rear == null) throw new NullPointerException();
+        int data = rear.data;
+        rear = rear.previous;
+        rear.next = null;
+        size--;
+        return data;
+    }
+    public int peekFirst()
+    {
+        if(front == null) throw new NullPointerException();
+        return front.data;
+    }
+    public int peekLast()
+    {
+        if(rear == null) throw new NullPointerException();
+        return rear.data;
+    }
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
+        Node temp = front;
+        while(temp != null)
+        {
+            sb.append(temp.data);
+            temp = temp.next;
+            if(temp != null) sb.append(", ");
+        }
+        sb.append(" ]");
+        return sb.toString();
+    }
+    public boolean isEmpty()
+    {
+        return front == null;
+    }
+    public int size()
+    {
+        return size;
+    }
+}
+ class Main{
+    
+    public static void main(String[]gopii)
+    {
+        Queue q1 = new Queue();
+    System.out.println("Is the queue empty? " + q1.isEmpty()); // Should print "true"
+    q1.enqueueLast(1);
+    System.out.println("Is the queue empty? " + q1.isEmpty()); // Should print "false"
+        Queue q = new Queue();
+        q.enqueueFirst(1);
+        q.enqueueLast(2);
+        q.enqueueFirst(3);
+        q.enqueueFirst(4);
+        q.enqueueFirst(5);
+        q.enqueueFirst(6);
+        q.enqueueLast(7);
+        q.enqueueLast(8);
+        System.out.println(q);
+        System.out.println(q.peekFirst());
+        System.out.println(q.peekLast());
+        System.out.println(q);
+        System.out.println(q.dequeueLast());
+        System.out.println(q.dequeueFirst());
+        System.out.println(q);
+    }
+}
+
