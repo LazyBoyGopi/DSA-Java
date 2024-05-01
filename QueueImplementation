@@ -1,0 +1,77 @@
+class Node{
+    Node next;
+    int data;
+    public Node(int data)
+    {
+        this.data = data;
+    }
+}
+class Queue{
+    Node front;
+    Node rear;
+    public void enqueue(int data)
+    {
+        if(rear == null)
+        {
+            rear = front = new Node(data);
+            return;
+        }
+        Node temp = new Node(data);
+        rear.next = temp;
+        rear = temp;
+    }
+    public int dequeue()
+    {
+        if(front == null) throw new NullPointerException();
+        int data = front.data;
+        front = front.next;
+        return data;
+    }
+    public int peek()
+    {
+        if(front == null) throw new NullPointerException();
+        return front.data;
+    }
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
+        Node temp = front;
+        while(temp != null)
+        {
+            sb.append(temp.data);
+            temp = temp.next;
+            if(temp != null) sb.append(", ");
+        }
+        sb.append(" ]");
+        return sb.toString();
+    }
+    public boolean isEmpty()
+    {
+        return front == null;
+    }
+}
+ class Main{
+    
+    public static void main(String[]gopii)
+    {
+        Queue q1 = new Queue();
+    System.out.println("Is the queue empty? " + q1.isEmpty()); // Should print "true"
+    q1.enqueue(1);
+    System.out.println("Is the queue empty? " + q1.isEmpty()); // Should print "false"
+        Queue q = new Queue();
+        q.enqueue(1);
+        q.enqueue(2);
+        q.enqueue(3);
+        q.enqueue(4);
+        q.enqueue(5);
+        q.enqueue(6);
+        q.enqueue(7);
+        q.enqueue(8);
+        System.out.println(q);
+        System.out.println(q.peek());
+        System.out.println(q);
+        System.out.println(q.dequeue());
+        System.out.println(q);
+    }
+}
+
