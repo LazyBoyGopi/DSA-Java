@@ -1,0 +1,80 @@
+
+ class Main{
+    private static int[] getPreviousSmaller(int[]ar)
+    {
+        int[]previousSmaller = new int[ar.length];
+        for(int i=0;i<ar.length;i++)
+        {
+            int smaller = ar[i];
+            for(int j=i-1;j>=0;j--)
+            {
+                if(ar[j] < ar[i]) 
+                {
+                    smaller = ar[j];
+                    break;
+                }
+            }
+            previousSmaller[i] = smaller == ar[i] ? -1 : smaller;
+        }
+        return previousSmaller;
+    }
+    private static int[] getNextSmaller(int[]ar)
+    {
+        int[]nextSmaller = new int[ar.length];
+        for(int i=0;i<ar.length;i++)
+        {
+            int smaller = ar[i];
+            for(int j=i+1;j<ar.length;j++)
+            {
+                if(ar[j] < smaller)
+                {
+                    smaller = ar[j];
+                    break;
+                }
+            }
+            nextSmaller[i] = smaller == ar[i] ? ar.length : smaller;
+        }
+        return nextSmaller;
+    }
+    private static int[] getWidth(int[]previousSmaller , int[]nextSmaller)
+    {
+        int[] width = new int[previousSmaller.length];
+        for(int i=0;i<previousSmaller.length;i++)
+        {
+            width[i] = nextSmaller[i]-previousSmaller[i]-1;
+        }
+        return width;
+    }
+    private static int[] getArea(int[]ar,int[]width)
+    {
+        int[]area = new int[ar.length];
+        for(int i=0;i<ar.length;i++)
+        {
+            area[i] = width[i] * ar[i];
+        }
+        return area;
+    }
+    private static int getLargestAreaInAHistogram(int[]ar)
+    {
+        int[] previousSmaller = getPreviousSmaller(ar);
+        int[] nextSmaller = getNextSmaller(ar);
+        int[] width = getWidth(previousSmaller,nextSmaller);
+        int[] areas = getArea(ar,width);
+        int maxArea = Integer.MIN_VALUE;
+        for(int area : areas)
+        {
+            if(area > maxArea)
+            {
+                maxArea = area;
+            }
+        }
+        return maxArea;
+    }
+    public static void main(String[]gopii)
+    {
+        int []ar = {4,2,1,5,6,3,2,4,2};
+        int maxArea = getLargestAreaInAHistogram(ar);
+        System.out.println("Max Area in the given histogram is "+maxArea);
+    }
+}
+
