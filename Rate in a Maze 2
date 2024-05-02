@@ -1,0 +1,56 @@
+class Solution {
+    private static void getCombinations(int[][]grid,int i,int j,ArrayList<String>list,StringBuilder route)
+    {
+        if(grid[i][j] == 0) return;
+        int len = grid.length-1;
+        int ele = grid[i][j];
+        grid[i][j] = -1;
+        if(i == len && j == len)
+        {
+            list.add(new String(route));
+            return;
+        }
+        if(i < len && grid[i+1][j] == 1)
+        {
+            int temp = grid[i+1][j];
+            grid[i+1][j] = -1;
+            route.append('D');
+            getCombinations(grid,i+1,j,list,route);
+            route.deleteCharAt(route.length()-1);
+            grid[i+1][j] = temp;
+        }
+        if(j < len && grid[i][j+1] == 1)
+        {
+            int temp = grid[i][j+1];
+            grid[i][j+1] = -1;
+            route.append('R');
+            getCombinations(grid,i,j+1,list,route);
+            route.deleteCharAt(route.length()-1);
+            grid[i][j+1] = temp;
+        }
+        if(i > 0 && grid[i-1][j] == 1)
+        {
+            int temp = grid[i-1][j];
+            grid[i-1][j] = -1;
+            route.append('U');
+            getCombinations(grid,i-1,j,list,route);
+            route.deleteCharAt(route.length()-1);
+            grid[i-1][j] = temp;
+        }
+        if(j > 0 && grid[i][j-1] == 1)
+        {
+            int temp = grid[i][j-1];
+            grid[i][j-1] = -1;
+            route.append('L');
+            getCombinations(grid,i,j-1,list,route);
+            route.deleteCharAt(route.length()-1);
+            grid[i][j-1] = temp;
+        }
+        grid[i][j] = ele;
+    }
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        ArrayList<String> list = new ArrayList<String>();
+        getCombinations(m,0,0,list,new StringBuilder());
+        return list;
+    }
+}
