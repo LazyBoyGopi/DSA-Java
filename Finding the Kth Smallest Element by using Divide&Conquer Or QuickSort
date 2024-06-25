@@ -1,0 +1,36 @@
+import java.util.Arrays;
+
+public class PracticeSession {
+    private static void swap(int[] ar,int i,int j){
+        int temp = ar[i];
+        ar[i] = ar[j];
+        ar[j] = temp;
+    }
+    private static int conquer(int[]ar,int st, int end){
+        int pivot = ar[st];
+        int i = st;
+        for(int j=st+1;j<=end;j++){
+            if(ar[j] <= pivot){
+                i++;
+                swap(ar,i,j);
+            }
+        }
+        swap(ar,st,i);
+        return i;
+    }
+   private static int kthSmallest(int[]ar,int st,int end,int k){
+    if(st < end){
+        int pivot = conquer(ar,st,end);
+        if(pivot == k-1) return ar[pivot];
+        if(pivot > k-1) return kthSmallest(ar,st,pivot-1,k);
+        return kthSmallest(ar,pivot+1,end,k);
+    }
+    return -1;
+   }
+    public static void main(String[] args) {
+        int[]ar = {19,3,4,5,9,12,98,34,54};
+        int[] org = {3,4,5,9,12,19,34,54,98};
+        int k=9;
+        System.out.println(kthSmallest(ar,0,ar.length-1,k));
+    }
+}
